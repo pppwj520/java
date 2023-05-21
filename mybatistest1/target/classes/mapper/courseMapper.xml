@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.courseMapper">
+    <resultMap type="com.itheima.pojo.course" id="courseMap">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="hours" column="hours"/>
+        <result property="school" column="school"/>
+    </resultMap>
+
+
+    <select id="findBycId" resultType="com.itheima.pojo.course" resultMap="courseMap">
+        select * from c_course where id = #{id}
+    </select>
+
+
+    <select id="findByschoolname" resultType="com.itheima.pojo.course" resultMap="courseMap">
+        select *
+        from c_course
+        where school =(select id from s_school where schoolname = #{schoolname})
+    </select>
+
+
+    <select id="findall" resultType="com.itheima.pojo.course" resultMap="courseMap">
+        select a.*,b.schoolname
+        from c_course a,s_school b
+        where a.school = b.id
+        order by schoolname
+    </select>
+
+
+    <update id="updateHours" >
+        update c_course set hours = #{hours} where id = #{id}
+    </update>
+
+
+    <update id="updateouto">
+        ALTER TABLE c_course AUTO_INCREMENT = 1
+    </update>
+
+
+    <insert id="addcourse" parameterType="com.itheima.pojo.course" >
+        insert into c_course (name,hours,school) values (#{name},#{hours},#{school})
+    </insert>
+
+</mapper>
