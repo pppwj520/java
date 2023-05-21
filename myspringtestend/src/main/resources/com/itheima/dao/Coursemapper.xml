@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.Coursemapper">
+    <resultMap type="com.itheima.pojo.Course" id="courseMap">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="hours" column="hours"/>
+        <result property="school" column="school"/>
+    </resultMap>
+    <insert id="addcourse" parameterType="com.itheima.pojo.Course" useGeneratedKeys="true" keyProperty="id"  >
+        insert into c_course(Imgurl,name,hours,school)
+        values (#{imgurl},#{name},#{hours},#{school});
+    </insert>
+    <select id="findCourseByname" parameterType="string" resultType="com.itheima.pojo.Course" resultMap="courseMap">
+        select * from c_course where name = #{name};
+    </select>
+    <update id="updateouto">
+        ALTER TABLE c_course AUTO_INCREMENT = 1
+    </update>
+    <update id="updateCourse" parameterType="com.itheima.pojo.Course">
+        update c_course  set imgurl = #{imgurl},name = #{name},hours = #{hours},school = #{school}
+        where id = #{id};
+    </update>
+    <delete id="deleteCourseByid" parameterType="int">
+        delete from c_course where id = #{id};
+    </delete>
+    <select id="findAllCourse" resultType="com.itheima.pojo.Course">
+        select * from c_course;
+    </select>
+    <select id="findCourseByid"  parameterType="int" resultType="com.itheima.pojo.Course">
+        select * from c_course where id = #{id};
+    </select>
+<update id="updateouto1">
+    SET @auto_id = 0;
+    UPDATE c_course SET id = (@auto_id := @auto_id + 1);
+    ALTER TABLE c_course AUTO_INCREMENT = 1;
+</update>
+
+</mapper>
