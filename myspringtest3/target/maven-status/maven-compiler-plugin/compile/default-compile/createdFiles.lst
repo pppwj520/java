@@ -1,0 +1,6 @@
+com\itheima\pojo\sschool.class
+com\itheima\dao\Coursemapper.class
+com\itheima\controller\Coursecontroller.class
+com\itheima\service\impl\CourseServiceImpl.class
+com\itheima\pojo\Course.class
+com\itheima\service\CourseService.class
